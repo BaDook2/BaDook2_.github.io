@@ -1,0 +1,23 @@
+import sys
+input = sys.stdin.readline
+
+n, c = map(int, input().split())  # n: 마을 수, c: 트럭 용량
+m = int(input())  # 박스 정보 개수
+box = [list(map(int, input().split()))
+       for _ in range(m)]  # [출발 마을, 도착 마을, 박스 개수]
+
+box.sort(key=lambda x: x[1])  # 도착 마을 오름차순
+
+answer = 0  # 최대 박스 수
+remain = [c]*(n+1)  # 각 마을에서 실을 수 있는 박스 수
+
+for i in range(m):  # 박스 정보에 대해서 1개씩 접근
+    temp = c  # c개를 실을 수 있다고 가정..? (트럭용량)
+    for j in range(box[i][0], box[i][1]):  # 박스의 출발과 도착
+        temp = min(temp, remain[j])  # 트럭 용량과 각 마을에 남은 공간 중 최소값
+    temp = min(temp, box[i][2])  # 위 비교 값과 박스 개수 중 최소값
+    for j in range(box[i][0], box[i][1]):
+        remain[j] -= temp  # 출발 마을 ~ 도착 마을 전까지 모든 마을에서 실을 수 있는 박스 개수 감소
+    answer += temp
+
+print(answer)
