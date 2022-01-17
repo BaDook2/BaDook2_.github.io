@@ -9,7 +9,7 @@ box = [list(map(int, input().split()))
 box.sort(key=lambda x: x[1])  # 도착 마을 오름차순
 
 answer = 0  # 최대 박스 수
-remain = [c]*(n+1)  # 각 마을에서 실을 수 있는 박스 수
+remain = [c]*n  # 각 마을에서 실을 수 있는 박스 수
 
 for i in range(m):  # 박스 정보에 대해서 1개씩 접근
     temp = c  # c개를 실을 수 있다고 가정..? (트럭용량)
